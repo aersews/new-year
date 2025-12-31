@@ -78,7 +78,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed">
-          I am @aersews. The New Year is here, and I have a little message for you. <br />
+          The New Year is here. I am @aersews and I have a little message for you. <br />
           But first, tell me who you are!
         </p>
 
