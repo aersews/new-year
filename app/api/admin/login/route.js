@@ -5,7 +5,7 @@ export async function POST(request) {
     try {
         const { password } = await request.json();
 
-        if (password === "change_me") {
+        if (password === process.env.ADMIN_PASSWORD) {
             const cookieStore = await cookies();
             // Set a cookie valid for 1 day
             cookieStore.set('admin_auth', 'true', {

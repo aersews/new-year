@@ -60,50 +60,63 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 overflow-hidden relative">
-      {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-20%] w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
-        <div className="absolute top-[-15%] right-[-15%] w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-[-10%] left-[10%] w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-4000"></div>
+
+      {/* Ambient Background Blobs */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute -top-1/3 -left-1/3 w-[28rem] h-[28rem] bg-purple-300 rounded-full blur-3xl opacity-40 animate-blob" />
+        <div className="absolute -top-1/4 -right-1/4 w-[28rem] h-[28rem] bg-yellow-300 rounded-full blur-3xl opacity-40 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-1/4 left-1/4 w-[28rem] h-[28rem] bg-pink-300 rounded-full blur-3xl opacity-40 animate-blob animation-delay-4000" />
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2 }}
+        transition={{ duration: 1.1, ease: "easeOut" }}
         className="w-full max-w-lg text-center"
       >
         <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800 mb-6 tracking-tight">
-          Hey, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Guys!</span> ✨
+          Hey,{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+            you
+          </span>{" "}
+          ✨
         </h1>
 
         <p className="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed">
-          The New Year is here. I am @aersews and I have a little message for you. <br />
-          But first, tell me who you are!
+          A brand new year just started.
+          <br />
+          I’m{" "}
+          <span className="font-semibold text-gray-800 underline decoration-pink-400 decoration-2 underline-offset-4">
+            @aersews
+          </span>
+          , and I left a small message—
+          <br />
+          <span className="italic text-gray-700">meant only for you.</span>
+          <br />
+          <br />
+          Before you see it, tell me your name.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative group">
+          <div className="relative">
             <Input
               type="text"
-              placeholder="Your Name"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="text-center shadow-md group-hover:shadow-xl focus:ring-2 focus:ring-pink-400 transition-all duration-300 ease-in-out"
-              autoFocus
+              className="text-center text-lg shadow-md focus:shadow-xl focus:ring-2 focus:ring-pink-400 transition-all duration-300"
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full text-lg shadow-lg shadow-pink-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 text-white transition-all duration-300 ease-in-out"
             isLoading={isLoading}
+            className="w-full text-lg py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-pink-300/50 hover:scale-[1.02] hover:shadow-xl transition-all duration-300"
           >
-            See My Message ➜
+            Open your message →
           </Button>
         </form>
       </motion.div>
     </main>
-
   );
 }

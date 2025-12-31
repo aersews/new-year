@@ -58,8 +58,10 @@ export default function GratitudePage() {
                 transition={{ duration: 1 }}
                 className="max-w-3xl mx-auto bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl border-8 border-double border-pink-200 relative overflow-hidden"
             >
+                {/* Decorative Top Bar */}
                 <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300"></div>
 
+                {/* Header */}
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4 font-sans tracking-tight">
                         Happy New Year, <br />
@@ -68,15 +70,36 @@ export default function GratitudePage() {
                     <div className="w-24 h-1 bg-pink-200 mx-auto rounded-full"></div>
                 </div>
 
+                {/* Message Content */}
                 <div
-                    className="prose prose-lg md:prose-xl mx-auto text-gray-600 leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:text-pink-400 first-letter:mr-3 first-letter:float-left"
+                    className="prose prose-lg md:prose-xl mx-auto text-gray-700 leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:text-pink-400 first-letter:mr-3 first-letter:float-left"
                     dangerouslySetInnerHTML={{ __html: user.gratitudeContent }}
                 />
 
+                {/* Footer Signature */}
                 <div className="mt-16 text-center">
-                    <p className="text-sm text-gray-400 italic">With love & gratitude</p>
+                    <p className="text-sm text-gray-500 italic">
+                        With love and gratitude, <br />
+                        — aersews
+                    </p>
                 </div>
             </motion.div>
+
+            {/* Feedback Link */}
+            <div className="mt-8 mb-8 text-center">
+                <p className="text-sm text-gray-600 mb-1">
+                    Your thoughts mean a lot — it only takes a moment:
+                </p>
+                <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdeRbby2jDSem1kDTUYoTnDyAmhoN-2SzFEBFJ6Pb8ZHNGBPw/viewform?usp=publish-editor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-pink-400 hover:text-pink-500 text-sm underline transition-colors"
+                >
+                    Share your feedback (anonymous)
+                </a>
+            </div>
         </main>
+
     );
 }

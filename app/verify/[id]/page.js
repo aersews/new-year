@@ -94,29 +94,32 @@ export default function VerifyPage() {
     if (isBlocked) {
         return (
             <main className="min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-red-50 to-pink-100">
-                <div className="text-center max-w-md bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-xl">
-                    <h1 className="text-4xl font-extrabold text-red-500 mb-4">
-                        Let’s pause for a moment 🙈
+                <div className="text-center max-w-md bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-xl space-y-6">
+
+                    <h1 className="text-4xl font-extrabold text-red-500 mb-4 tracking-wide">
+                        Let’s take a short pause 🙈
                     </h1>
 
-                    <p className="text-gray-700 text-lg leading-relaxed mb-4">
-                        {error || 'There have been a few too many incorrect attempts.'}
+                    <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                        {error || "Looks like there have been a few too many incorrect attempts."}
                     </p>
 
                     <p className="text-sm text-gray-500 mb-8">
-                        For now, access is temporarily paused to keep things safe.
-                        You can come back and try again a little later.
+                        For your security, access is temporarily paused. Don’t worry—you can come back and try again soon.
                     </p>
 
                     <Button
-                        className="mt-2 px-8 py-3 text-lg"
+                        className="mt-4 px-8 py-3 text-lg bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-full shadow-md hover:shadow-lg transition-all"
                         onClick={() => router.push('/')}
                     >
                         Return Home
                     </Button>
+
+                    <p className="mt-4 text-xs text-gray-400 italic">
+                        Safety first 💛
+                    </p>
                 </div>
             </main>
-
         );
     }
 
@@ -125,14 +128,24 @@ export default function VerifyPage() {
     return (
         <main className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-br from-green-200 to-blue-300">
             <div className="w-full max-w-lg">
+                {/* Header */}
                 <div className="mb-8 text-center">
-                    <p className="text-sm uppercase tracking-widest text-gray-500 mb-2">Verification</p>
+                    <p className="text-sm uppercase tracking-widest text-gray-500 mb-2">
+                        Quick Check
+                    </p>
+                    <p className="text-xs text-gray-500 mb-4">
+                        Just a moment — this helps make sure it’s really you
+                    </p>
+
                     <div className="flex justify-center space-x-2 mb-6">
                         {questions.map((_, idx) => (
                             <div
                                 key={idx}
-                                className={`h-2 w-2 rounded-full transition-colors duration-300 ${idx === currentQuestionIndex ? 'bg-blue-500' :
-                                    idx < currentQuestionIndex ? 'bg-green-400' : 'bg-gray-200'
+                                className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${idx === currentQuestionIndex
+                                    ? 'bg-blue-500'
+                                    : idx < currentQuestionIndex
+                                        ? 'bg-green-400'
+                                        : 'bg-gray-200'
                                     }`}
                             />
                         ))}
@@ -145,10 +158,10 @@ export default function VerifyPage() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.35, ease: 'easeOut' }}
                         className="bg-white p-8 rounded-3xl shadow-xl"
                     >
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                             {currentQuestion.text}
                         </h2>
 
@@ -172,10 +185,9 @@ export default function VerifyPage() {
                             ) : (
                                 <Input
                                     type="text"
-                                    placeholder="Your answer..."
+                                    placeholder="Type your answer here…"
                                     value={answer}
                                     onChange={(e) => setAnswer(e.target.value)}
-                                    autoFocus
                                     className="w-full p-4 border-2 rounded-xl focus:ring-2 focus:ring-blue-300"
                                 />
                             )}
@@ -186,7 +198,7 @@ export default function VerifyPage() {
                                     animate={{ opacity: 1 }}
                                     className="text-red-500 text-sm text-center"
                                 >
-                                    {error}
+                                    That doesn’t look quite right — want to try once more?
                                 </motion.p>
                             )}
 
@@ -196,12 +208,13 @@ export default function VerifyPage() {
                                 isLoading={isLoading}
                                 disabled={!answer.trim()}
                             >
-                                Check Answer
+                                Check & Continue →
                             </Button>
                         </form>
                     </motion.div>
                 </AnimatePresence>
             </div>
         </main>
+
     );
 }

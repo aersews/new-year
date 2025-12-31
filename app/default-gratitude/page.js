@@ -18,48 +18,44 @@ function DefaultGratitudeContent() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: 'easeOut' }}
-                className="max-w-2xl w-full bg-white/70 backdrop-blur-lg p-10 md:p-14 rounded-3xl shadow-2xl text-center"
+                className="max-w-2xl w-full bg-white/80 backdrop-blur-lg p-10 md:p-14 rounded-3xl shadow-2xl text-center"
             >
                 <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-900 mb-6 tracking-tight">
                     Hey {name} ✨
                 </h1>
 
                 <p className="text-lg md:text-xl text-indigo-800 leading-relaxed mb-8">
-                    I couldn’t unlock the original message this time —
-                    but that doesn’t mean you should leave empty-handed.
+                    Hm… it seems your message didn’t arrive. But no worries — <strong>you were thought of</strong>!
                     <br /><br />
-                    So here’s something just as important:
-                    a warm wish for a year filled with good moments,
-                    small wins, and unexpected smiles.
+                    Maybe try a different <u>name</u>? Sometimes we recognize you better that way.
+                    <br /><br />
+                    Either way, wishing you a year full of <strong>little wins</strong> and unexpected <em>smiles</em>.
                 </p>
 
+
                 {!isBlocked && (
-                    <div className="mt-10">
-                        <p className="text-sm text-indigo-600 mb-4">
-                            Want to give it another try?
-                        </p>
-                        <Button
-                            onClick={() => router.push('/')}
-                            className="px-8 py-3 text-lg"
-                        >
-                            Start Again
-                        </Button>
-                    </div>
+                    <Button
+                        onClick={() => router.push('/')}
+                        className="px-8 py-3 text-lg shadow-md hover:shadow-lg transition-all"
+                    >
+                        Try Again
+                    </Button>
                 )}
 
                 {isBlocked && (
                     <p className="text-sm text-red-500 mt-8">
-                        Things are paused for now — but the good wishes still count 💛
+                        Access is paused for now, but my good wishes still stand 💛
                     </p>
                 )}
 
-                <div className="mt-14">
+                <div className="mt-10">
                     <p className="text-xs text-gray-400 italic">
-                        Wishing you a beautiful year ahead.
+                        With warmth and care, wishing you a wonderful year ahead.
                     </p>
                 </div>
             </motion.div>
         </main>
+
     );
 }
 
