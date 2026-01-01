@@ -175,10 +175,11 @@ export default function AdminPage() {
     if (editingUser) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 md:p-10">
-                <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
+
                     {/* Header */}
-                    <div className="px-8 py-6 border-b bg-gray-50">
-                        <h2 className="text-3xl font-extrabold text-gray-800">
+                    <div className="px-8 py-6 border-b bg-gradient-to-r from-gray-50 to-gray-100">
+                        <h2 className="text-3xl font-extrabold text-gray-900">
                             {editingUser._id ? 'Edit User Profile' : 'Create New User'}
                         </h2>
                         <p className="text-sm text-gray-500 mt-1">
@@ -187,18 +188,24 @@ export default function AdminPage() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSaveUser} className="p-8 space-y-10">
+                    <form onSubmit={handleSaveUser} className="p-8 space-y-12">
+
                         {/* Identity */}
-                        <section>
-                            <h3 className="text-lg font-bold text-gray-700 mb-4">Identity</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <section className="bg-gray-50 rounded-2xl p-6 border">
+                            <h3 className="text-lg font-bold text-gray-800 mb-4">
+                                Identity
+                            </h3>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-600 mb-1">
                                         Search Name
                                     </label>
                                     <Input
                                         value={formData.name}
-                                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                        onChange={e =>
+                                            setFormData({ ...formData, name: e.target.value })
+                                        }
                                         placeholder="e.g. chandan_kumar (lowercase)"
                                     />
                                     <p className="text-xs text-gray-400 mt-1">
@@ -212,7 +219,12 @@ export default function AdminPage() {
                                     </label>
                                     <Input
                                         value={formData.displayName}
-                                        onChange={e => setFormData({ ...formData, displayName: e.target.value })}
+                                        onChange={e =>
+                                            setFormData({
+                                                ...formData,
+                                                displayName: e.target.value
+                                            })
+                                        }
                                         placeholder="Chandan"
                                     />
                                 </div>
@@ -220,27 +232,32 @@ export default function AdminPage() {
                         </section>
 
                         {/* Gratitude Content */}
-                        <section>
-                            <h3 className="text-lg font-bold text-gray-700 mb-4">
+                        <section className="bg-gray-50 rounded-2xl p-6 border">
+                            <h3 className="text-lg font-bold text-gray-800 mb-4">
                                 Gratitude Message
                             </h3>
+
                             <textarea
-                                className="w-full p-4 border rounded-2xl h-48 font-mono text-sm text-gray-500 focus:ring-2 focus:ring-blue-200"
+                                className="w-full h-48 p-4 border rounded-xl font-mono text-sm text-gray-700 focus:ring-2 focus:ring-blue-300 focus:outline-none resize-none"
                                 value={formData.gratitudeContent}
                                 onChange={e =>
-                                    setFormData({ ...formData, gratitudeContent: e.target.value })
+                                    setFormData({
+                                        ...formData,
+                                        gratitudeContent: e.target.value
+                                    })
                                 }
                                 placeholder="<p>Your heartfelt message goes here...</p>"
                             />
+
                             <p className="text-xs text-gray-400 mt-2">
                                 HTML supported. Rendered after successful verification.
                             </p>
                         </section>
 
                         {/* Questions */}
-                        <section>
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-bold text-gray-700">
+                        <section className="bg-gray-50 rounded-2xl p-6 border">
+                            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-4">
+                                <h3 className="text-lg font-bold text-gray-800">
                                     Verification Questions
                                 </h3>
                                 <Button
@@ -256,7 +273,7 @@ export default function AdminPage() {
                                 {formData.questions.map((q, idx) => (
                                     <div
                                         key={idx}
-                                        className="relative p-5 bg-gray-50 border rounded-2xl"
+                                        className="relative bg-white border rounded-xl p-5 shadow-sm"
                                     >
                                         <button
                                             type="button"
@@ -267,7 +284,7 @@ export default function AdminPage() {
                                             ✕
                                         </button>
 
-                                        <div className="space-y-3">
+                                        <div className="space-y-4">
                                             <Input
                                                 placeholder="Question text"
                                                 value={q.text}
@@ -276,9 +293,9 @@ export default function AdminPage() {
                                                 }
                                             />
 
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <select
-                                                    className="p-2 border rounded-xl"
+                                                    className="p-2 border rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none"
                                                     value={q.type}
                                                     onChange={e =>
                                                         updateQuestion(idx, 'type', e.target.value)
@@ -292,7 +309,11 @@ export default function AdminPage() {
                                                     placeholder="Correct answer"
                                                     value={q.answer}
                                                     onChange={e =>
-                                                        updateQuestion(idx, 'answer', e.target.value)
+                                                        updateQuestion(
+                                                            idx,
+                                                            'answer',
+                                                            e.target.value
+                                                        )
                                                     }
                                                 />
                                             </div>
@@ -319,83 +340,130 @@ export default function AdminPage() {
                         </section>
 
                         {/* Actions */}
-                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <Button type="submit" className="px-8">
+                        <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                            <Button type="submit" className="px-8 py-2">
                                 Save Changes
                             </Button>
                             <Button
                                 type="button"
                                 onClick={() => setEditingUser(null)}
-                                className="bg-gray-300 hover:bg-gray-400 text-gray-800"
+                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-2"
                             >
                                 Cancel
                             </Button>
                         </div>
+
                     </form>
                 </div>
             </div>
+
         );
     }
 
     return (
-        <div className="min-h-screen p-6 bg-gray-50">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+            <div className="max-w-6xl mx-auto space-y-8">
 
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-                    <h1 className="text-3xl font-extrabold text-gray-800">Admin Dashboard</h1>
-                    <Button onClick={() => startEdit()} className="whitespace-nowrap">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h1 className="text-3xl font-extrabold text-gray-900">
+                            Admin Dashboard
+                        </h1>
+                        <p className="text-sm text-gray-500">
+                            Manage users, monitor access, and review security logs
+                        </p>
+                    </div>
+
+                    <Button
+                        onClick={() => startEdit()}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-sm transition"
+                    >
                         + Add User
                     </Button>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex gap-4 mb-6 border-b border-gray-200 overflow-x-auto">
+                <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
                     {['users', 'logs', 'blocked'].map(tab => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`px-4 py-2 font-medium capitalize transition-colors ${activeTab === tab
-                                ? 'text-blue-600 border-b-2 border-blue-600'
-                                : 'text-gray-500 hover:text-gray-700'
+                            className={`px-5 py-2 text-sm font-medium capitalize rounded-t-lg transition-all
+                        ${activeTab === tab
+                                    ? 'bg-white text-blue-600 border border-b-0 border-gray-200 shadow-sm'
+                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                                 }`}
                         >
-                            {tab === 'users' ? 'Manage Users' : tab === 'logs' ? 'Access Logs' : 'Blocked Users'}
+                            {tab === 'users'
+                                ? 'Manage Users'
+                                : tab === 'logs'
+                                    ? 'Access Logs'
+                                    : 'Blocked Users'}
                         </button>
                     ))}
                 </div>
 
-                {/* Users Tab */}
+                {/* USERS TAB */}
                 {activeTab === 'users' && (
-                    <div className="grid gap-4">
+                    <div className="grid gap-6">
                         {users.length ? (
                             users.map(user => (
-                                <div key={user._id} className="bg-white p-6 rounded-xl shadow flex justify-between items-center hover:shadow-lg transition">
+                                <div
+                                    key={user._id}
+                                    className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+                                >
                                     <div>
-                                        <h3 className="font-bold text-gray-600 text-lg">{user.displayName}</h3>
-                                        <p className="text-gray-500 text-sm">
+                                        <h3 className="text-lg font-semibold text-gray-900">
+                                            {user.displayName}
+                                        </h3>
+                                        <p className="text-sm text-gray-500">
                                             @{user.name} • {user.questions.length} questions
                                         </p>
                                     </div>
-                                    <div className="flex gap-2">
-                                        <Button onClick={() => startEdit(user)} className="bg-blue-500 text-sm py-2 px-4 hover:bg-blue-600">Edit</Button>
-                                        <Button onClick={() => startEdit(user, true)} className="bg-green-500 text-sm py-2 px-4 hover:bg-green-600">Copy</Button>
-                                        <Button onClick={() => handleDelete(user._id)} className="bg-red-500 text-sm py-2 px-4 hover:bg-red-600">Delete</Button>
-                                        <a href={`/gratitude/${user._id}`} target="_blank" className="text-blue-500 underline text-sm flex items-center hover:text-blue-600">View</a>
+
+                                    <div className="flex flex-wrap gap-2">
+                                        <Button
+                                            onClick={() => startEdit(user)}
+                                            className="bg-blue-500 hover:bg-blue-600 text-sm px-4 py-2 rounded-lg"
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            onClick={() => startEdit(user, true)}
+                                            className="bg-green-500 hover:bg-green-600 text-sm px-4 py-2 rounded-lg"
+                                        >
+                                            Copy
+                                        </Button>
+                                        <Button
+                                            onClick={() => handleDelete(user._id)}
+                                            className="bg-red-500 hover:bg-red-600 text-sm px-4 py-2 rounded-lg"
+                                        >
+                                            Delete
+                                        </Button>
+                                        <a
+                                            href={`/gratitude/${user._id}`}
+                                            target="_blank"
+                                            className="text-blue-600 text-sm font-medium underline flex items-center hover:text-blue-700"
+                                        >
+                                            View
+                                        </a>
                                     </div>
                                 </div>
                             ))
                         ) : (
-                            <p className="text-center text-gray-500 py-6">No users found.</p>
+                            <div className="text-center text-gray-500 py-10 bg-white rounded-xl shadow-sm">
+                                No users found.
+                            </div>
                         )}
                     </div>
                 )}
 
-                {/* Logs Tab */}
+                {/* LOGS TAB */}
                 {activeTab === 'logs' && (
-                    <div className="bg-white rounded-xl shadow overflow-x-auto">
+                    <div className="bg-white rounded-xl shadow-sm overflow-x-auto">
                         <table className="w-full text-sm text-left border-collapse">
-                            <thead className="bg-gray-100 text-gray-600 font-medium">
+                            <thead className="bg-gradient-to-r from-blue-50 to-blue-100 text-gray-700 font-semibold">
                                 <tr>
                                     <th className="p-4">Time</th>
                                     <th className="p-4">User</th>
@@ -407,20 +475,31 @@ export default function AdminPage() {
                             </thead>
                             <tbody>
                                 {logs.length ? logs.map(log => (
-                                    <tr key={log._id} className="border-b last:border-0 hover:bg-gray-50 transition">
-                                        <td className="p-4 text-gray-500">{new Date(log.createdAt).toLocaleString()}</td>
-                                        <td className="p-4 font-medium">{log.userId?.displayName || 'Unknown'}</td>
-                                        <td className="p-4 text-gray-500">{log.questionId}</td>
-                                        <td className="p-4 font-mono">{log.answer}</td>
-                                        <td className="p-4">
-                                            <div className="text-xs text-gray-500">{log.ip}</div>
-                                            <div>{log.deviceInfo}</div>
+                                    <tr
+                                        key={log._id}
+                                        className="border-b last:border-0 hover:bg-gray-50 transition"
+                                    >
+                                        <td className="p-4 text-gray-500">
+                                            {new Date(log.createdAt).toLocaleString()}
+                                        </td>
+                                        <td className="p-4 font-medium text-gray-800">
+                                            {log.userId?.displayName || 'Unknown'}
+                                        </td>
+                                        <td className="p-4 text-gray-600">
+                                            {log.questionId}
+                                        </td>
+                                        <td className="p-4 font-mono text-gray-700">
+                                            {log.answer}
                                         </td>
                                         <td className="p-4">
+                                            <div className="text-xs text-gray-500">{log.ip}</div>
+                                            <div className="text-sm text-gray-600">{log.deviceInfo}</div>
+                                        </td>
+                                        <td className="p-4 font-semibold">
                                             {log.blocked ? (
-                                                <span className="text-red-600 font-bold">BLOCKED</span>
+                                                <span className="text-red-600">BLOCKED</span>
                                             ) : log.isCorrect ? (
-                                                <span className="text-green-600 font-bold">SUCCESS</span>
+                                                <span className="text-green-600">SUCCESS</span>
                                             ) : (
                                                 <span className="text-orange-500">WRONG</span>
                                             )}
@@ -428,7 +507,9 @@ export default function AdminPage() {
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan={6} className="p-8 text-center text-gray-500">No logs found.</td>
+                                        <td colSpan={6} className="p-10 text-center text-gray-500">
+                                            No logs found.
+                                        </td>
                                     </tr>
                                 )}
                             </tbody>
@@ -436,11 +517,11 @@ export default function AdminPage() {
                     </div>
                 )}
 
-                {/* Blocked Users Tab */}
+                {/* BLOCKED TAB */}
                 {activeTab === 'blocked' && (
-                    <div className="bg-white rounded-xl shadow overflow-x-auto">
+                    <div className="bg-white rounded-xl shadow-sm overflow-x-auto">
                         <table className="w-full text-sm text-left border-collapse">
-                            <thead className="bg-gray-100 text-gray-600 font-medium">
+                            <thead className="bg-gradient-to-r from-red-50 to-red-100 text-gray-700 font-semibold">
                                 <tr>
                                     <th className="p-4">Identifier</th>
                                     <th className="p-4">Target User</th>
@@ -451,15 +532,29 @@ export default function AdminPage() {
                             </thead>
                             <tbody>
                                 {blockedUsers.length ? blockedUsers.map(u => (
-                                    <tr key={u._id} className="border-b last:border-0 hover:bg-gray-50 transition">
-                                        <td className="p-4 font-mono text-xs max-w-xs truncate" title={u.identifier}>{u.identifier}</td>
-                                        <td className="p-4 font-medium">{u.lastAttemptedUserId?.displayName || 'Unknown'}</td>
-                                        <td className="p-4">{u.count}</td>
-                                        <td className="p-4 text-red-600">{new Date(u.blockedUntil).toLocaleString()}</td>
+                                    <tr
+                                        key={u._id}
+                                        className="border-b last:border-0 hover:bg-gray-50 transition"
+                                    >
+                                        <td
+                                            className="p-4 font-mono text-xs max-w-xs truncate"
+                                            title={u.identifier}
+                                        >
+                                            {u.identifier}
+                                        </td>
+                                        <td className="p-4 font-medium text-gray-800">
+                                            {u.lastAttemptedUserId?.displayName || 'Unknown'}
+                                        </td>
+                                        <td className="p-4 text-gray-600">
+                                            {u.count}
+                                        </td>
+                                        <td className="p-4 text-red-600 font-semibold">
+                                            {new Date(u.blockedUntil).toLocaleString()}
+                                        </td>
                                         <td className="p-4">
                                             <Button
                                                 onClick={() => handleUnblock(u.identifier)}
-                                                className="bg-green-500 hover:bg-green-600 text-xs py-1 px-3"
+                                                className="bg-green-500 hover:bg-green-600 text-xs px-3 py-1 rounded-lg focus:ring-2 focus:ring-green-400"
                                             >
                                                 Unblock
                                             </Button>
@@ -467,7 +562,9 @@ export default function AdminPage() {
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan={5} className="p-8 text-center text-gray-500">No blocked users.</td>
+                                        <td colSpan={5} className="p-10 text-center text-gray-500">
+                                            No blocked users.
+                                        </td>
                                     </tr>
                                 )}
                             </tbody>
@@ -477,5 +574,6 @@ export default function AdminPage() {
 
             </div>
         </div>
+
     );
 }
