@@ -108,10 +108,21 @@ export default function AdminPage() {
         if (res.ok) fetchBlocked();
     };
 
-    const startEdit = (user = null) => {
+    const startEdit = (user = null, isCopy = false) => {
         if (user) {
-            setEditingUser(user);
-            setFormData({ ...user });
+            if (isCopy) {
+                // Copy user data for new user creation
+                const { _id, createdAt, updatedAt, ...userData } = user;
+                setEditingUser({});
+                setFormData({
+                    ...userData,
+                    name: '',
+                    displayName: `${userData.displayName} (Copy)`,
+                });
+            } else {
+                setEditingUser(user);
+                setFormData({ ...user });
+            }
         } else {
             setEditingUser({});
             setFormData({
@@ -188,7 +199,7 @@ export default function AdminPage() {
                                     <Input
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                        placeholder="e.g. john_doe (lowercase)"
+                                        placeholder="e.g. chandan_kumar (lowercase)"
                                     />
                                     <p className="text-xs text-gray-400 mt-1">
                                         Used for lookup & verification
@@ -202,7 +213,7 @@ export default function AdminPage() {
                                     <Input
                                         value={formData.displayName}
                                         onChange={e => setFormData({ ...formData, displayName: e.target.value })}
-                                        placeholder="John Doe"
+                                        placeholder="Chandan"
                                     />
                                 </div>
                             </div>
@@ -214,7 +225,7 @@ export default function AdminPage() {
                                 Gratitude Message
                             </h3>
                             <textarea
-                                className="w-full p-4 border rounded-2xl h-48 font-mono text-sm focus:ring-2 focus:ring-blue-200"
+                                className="w-full p-4 border rounded-2xl h-48 font-mono text-sm text-gray-500 focus:ring-2 focus:ring-blue-200"
                                 value={formData.gratitudeContent}
                                 onChange={e =>
                                     setFormData({ ...formData, gratitudeContent: e.target.value })
@@ -361,13 +372,14 @@ export default function AdminPage() {
                             users.map(user => (
                                 <div key={user._id} className="bg-white p-6 rounded-xl shadow flex justify-between items-center hover:shadow-lg transition">
                                     <div>
-                                        <h3 className="font-bold text-lg">{user.displayName}</h3>
+                                        <h3 className="font-bold text-gray-600 text-lg">{user.displayName}</h3>
                                         <p className="text-gray-500 text-sm">
                                             @{user.name} • {user.questions.length} questions
                                         </p>
                                     </div>
                                     <div className="flex gap-2">
                                         <Button onClick={() => startEdit(user)} className="bg-blue-500 text-sm py-2 px-4 hover:bg-blue-600">Edit</Button>
+                                        <Button onClick={() => startEdit(user, true)} className="bg-green-500 text-sm py-2 px-4 hover:bg-green-600">Copy</Button>
                                         <Button onClick={() => handleDelete(user._id)} className="bg-red-500 text-sm py-2 px-4 hover:bg-red-600">Delete</Button>
                                         <a href={`/gratitude/${user._id}`} target="_blank" className="text-blue-500 underline text-sm flex items-center hover:text-blue-600">View</a>
                                     </div>
